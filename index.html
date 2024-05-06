@@ -21,7 +21,7 @@
         <h6>48,620</h6>
       </div>
     </div>
-    <section class="content">
+    <!-- <section class="content">
       <div class="container">
         <div class="chart">
           <h4>Percentage decrease On Weekends</h4>
@@ -32,8 +32,22 @@
           <img src="img/pie 2.png" alt="Percentage decrease on Weekends" />
         </div>
       </div>
-    </section>
-    
+    </section> -->
+    <div class="charts">
+      <div class="chart">
+        <h2>Percentage decrease on weekends</h2>
+        <canvas id="myPieChart"></canvas>
+      </div>
+      <div class="chart">
+        <h2>Percentage decrease on weekends</h2>
+        <canvas id="PieChart"></canvas>
+      </div>
+      <div class="chart">
+        <h2>Percentage decrease on weekends</h2>
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+
     <section class="filter">
       <div class="container">
         <div class="category dropdown">
@@ -88,11 +102,17 @@
       <div class="container">
         <div class="chart comparison">
           <h4>Percentage decrease On Weekends</h4>
-          <img src="img/comparison 1.png" alt="Percentage decrease on Weekends" />
+          <img
+            src="img/comparison 1.png"
+            alt="Percentage decrease on Weekends"
+          />
         </div>
         <div class="chart comparison">
           <h4>Comparison of weekend and weekday sales</h4>
-          <img src="img/comparison 2.png" alt="Percentage decrease on Weekends" />
+          <img
+            src="img/comparison 2.png"
+            alt="Percentage decrease on Weekends"
+          />
         </div>
       </div>
     </section>
@@ -117,6 +137,9 @@
       <p>Last updated at 05/04/2024</p>
     </footer>
 
-    <script src="interac.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <!-- <script src="node_modules/moment/moment.js"></script> -->
+    <script src="script.js"></script>
   </body>
 </html>

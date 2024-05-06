@@ -1,3 +1,6 @@
+:root{
+    --primary:#e07745;
+}
 html{
     scroll-behavior: smooth;
 }
@@ -150,6 +153,27 @@ body{
 }
 /* end revenue */
 
+ /* charts  */
+ .charts {
+     display: grid;
+     grid-template-columns: 2fr 2fr;
+     grid-gap: 20px;
+     width: 75%;
+     padding: 20px;
+     padding-top: 20px;
+ }
+
+ .chart {
+     background: #fff;
+     padding: 20px;
+     border-radius: 10px;
+     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+ }
+ .chart h2{
+    background-color: var(--primary);
+    margin-top: -20px;
+ }
+
 /* footer */
 footer{
     margin-left: 100px;
@@ -197,6 +221,9 @@ footer{
     .filter{
         display: none;
     }
+
+
+   
 
     
 

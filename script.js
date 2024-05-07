@@ -15,8 +15,6 @@ window.onclick = function (event) {
     }
 }
 
-
-
 // Fungsi untuk melakukan fetch data dan menyiapkan data chart
 function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
     fetch(url)
@@ -25,22 +23,55 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
             // Convert JSON data into a simpler format
             const simplifiedData = jsonData.map(item => ({
                 date: moment(item.date).format('dddd'), // Convert date to day
+                month: moment(item.date).format('MMMM'),
+                hour: parseInt(moment(item.time, "HH:mm:ss").format('HH'), 10),
                 size: item.size,
                 category: item.category,
                 order:item.order_id,
                 total: item.quantity * item.price,
                 quantity: item.quantity,
                 price: item.price
+                
             }));
+
+             // Buat array untuk nama hari dalam bahasa Inggris
+            const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            const monthsInEnglish = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+            // Fungsi untuk memetakan nama hari ke nomor urutan hari dalam seminggu
+            function getDayIndex(dayName) {
+                return daysOfWeek.indexOf(dayName);
+            }
+
+            function getMonthIndex(monthName) {
+                return monthsInEnglish.indexOf(monthName);
+            }
+
+            // Mengurutkan data berdasarkan hari 
+            simplifiedData.sort((a, b) => {
+                const dateA = getDayIndex(a.date);
+                const dateB = getDayIndex(b.date);
+                return dateA - dateB;
+            });
+            
+            // Mengurutkan data berdasarkan bulan
+            simplifiedData.sort((a, b) => {
+                const monthA = parseInt(a.month, 10);
+                const monthB = parseInt(b.month, 10);
+                return monthA - monthB;
+            });
 
             // filter data based on chartType
             const filteredData = simplifiedData.filter(item => {
                 if (chartType === 'total') {
                     return true;
-                } else if (chartType === 'size') {
+                } else if (chartType === 'month') {
                     return true;
-                }
-                else if (chartType === 'category') {
+                }else if (chartType === 'hour') {
+                    return true;
+                }else if (chartType === 'size') {
+                    return true;
+                }else if (chartType === 'category') {
                     return true;
                 }
             });
@@ -50,7 +81,15 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
                 if (chartType === 'total') {
                     const day = item.date;
                     acc[day] = (acc[day] || 0) + item.total;
-                } else if (chartType === 'size') {
+                }else if (chartType === 'month') {
+                    const month = item.month;
+                    acc[month] = (acc[month] || 0);
+                    acc[month] = (acc[month] || 0) + item.total;
+                }else if (chartType === 'hour') {
+                    const hour = item.hour;
+                    acc[hour] = (acc[hour] || 0);
+                    acc[hour] = (acc[hour] || 0) + item.total;
+                }else if (chartType === 'size') {
                     const size = item.size;
                     acc[size] = acc[size] || 0;
                     acc[size] += item.total;
@@ -107,7 +146,7 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
                             position: 'right',
                         },
                     },
-                    indexAxis:'y',
+                    indexAxis:'x',
                     maintainAspectRatio: false,
                     tooltips: {
                         callbacks: {
@@ -139,9 +178,9 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchDataAndPrepareChart('datas.json', ctx1,'total','pie');
 });
 document.addEventListener('DOMContentLoaded', () => {
-    const ctx2 = document.getElementById('PieChart').getContext('2d');
+    const ctx1 = document.getElementById('PieChart').getContext('2d');
 
-    fetchDataAndPrepareChart('datas.json', ctx2,'size','doughnut');
+    fetchDataAndPrepareChart('datas.json', ctx1,'size','doughnut');
 });
 document.addEventListener('DOMContentLoaded', () => {
     const ctx2 = document.getElementById('barChart').getContext('2d');
@@ -149,8 +188,27 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchDataAndPrepareChart('datas.json', ctx2,'category','bar');
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const ctx2 = document.getElementById('barCharts').getContext('2d');
 
+    fetchDataAndPrepareChart('datas.json', ctx2,'total','bar');
+});
 
+document.addEventListener('DOMContentLoaded', () => {
+    const ctx3 = document.getElementById('lineChart').getContext('2d');
 
+    fetchDataAndPrepareChart('datas.json', ctx3,'total','line');
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const ctx3 = document.getElementById('lineCharts').getContext('2d');
+
+    fetchDataAndPrepareChart('datas.json', ctx3,'month','line');
+});
+document.addEventListener('DOMContentLoaded', () => {
+    const ctx3 = document.getElementById('lineChartss').getContext('2d');
+
+    fetchDataAndPrepareChart('datas.json', ctx3,'hour','line');
+});
 
 

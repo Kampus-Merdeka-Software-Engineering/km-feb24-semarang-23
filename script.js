@@ -1,6 +1,15 @@
+function displayLastUpdatedDate() {
+  const footer = document.getElementById('footer');
+  const lastUpdated = document.lastModified;
+  footer.innerText = `Last Updated: ${new Date(lastUpdated).toLocaleDateString()}`;
+}
+
+
+
 function categoryFunc() {
     document.getElementById('category').classList.toggle('show');
 }
+
 
 window.onclick = function (event) {
     if (!event.target.matches('.dropbtn')) {
@@ -17,6 +26,8 @@ window.onclick = function (event) {
 
 // Fungsi untuk melakukan fetch data dan menyiapkan data chart
 function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
+    const rev = document.getElementById('total-revenue');
+  const ord = document.getElementById('total-order');
     fetch(url)
         .then(response => response.json())
         .then(jsonData => {
@@ -33,6 +44,22 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
                 price: item.price
                 
             }));
+
+            const result = jsonData.reduce((acc, item) => {
+              const revenue = item.quantity * item.price;
+              acc.totalRevenue += revenue;
+              if (item.order_id !== undefined) {
+                  acc.ord += 1;
+              }
+            //   acc.ord += 1;
+              return acc;
+          }, {totalRevenue:0,ord:0});
+        const roundedRevenue = Math.floor(result.totalRevenue);
+    //   const roundedOrder = Math.floor(totalRevenue);
+
+      // Tampilkan total revenue ke dalam elemen HTML
+      rev.innerText = `$${roundedRevenue.toLocaleString()}`;
+      ord.innerText = `${result.ord.toLocaleString()}`;
 
              // Buat array untuk nama hari dalam bahasa Inggris
             const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
@@ -163,12 +190,40 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
 
             // Panggil fungsi untuk membuat chart
             new Chart(ctx, chartConfig);
+            displayLastUpdatedDate();
 
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
 }
+
+// document.addEventListener('DOMContentLoaded', () => {
+//   const rev = document.getElementById('total-revenue');
+//   const ord = document.getElementById('total-order');
+
+//   fetch('datas.json')
+//     .then(response => response.json())
+//       .then(data => {
+//           // Hitung total sum(quantity * price) menggunakan fungsi reduce
+//           const result = data.reduce((acc, item) => {
+//               const revenue = item.quantity * item.price;
+//               acc.totalRevenue += revenue;
+//               if (item.order_id !== undefined) {
+//                   acc.ord += 1;
+//               }
+//             //   acc.ord += 1;
+//               return acc;
+//           }, {totalRevenue:0,ord:0});
+//         const roundedRevenue = Math.floor(result.totalRevenue);
+//     //   const roundedOrder = Math.floor(totalRevenue);
+
+//       // Tampilkan total revenue ke dalam elemen HTML
+//       rev.innerText = `$${roundedRevenue.toLocaleString()}`;
+//       ord.innerText = `${result.ord.toLocaleString()}`;
+//     })
+//     .catch(error => console.error('Error reading JSON file:', error));
+// });
 
 
 // Menggunakan fungsi fetchDataAndPrepareChart untuk membuat chart
@@ -210,5 +265,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchDataAndPrepareChart('datas.json', ctx3,'hour','line');
 });
+
+
+
 
 

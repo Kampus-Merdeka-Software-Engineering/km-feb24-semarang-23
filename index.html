@@ -12,50 +12,51 @@
         <img src="img/unduhan.png" alt="logo" />
         <h1>Pizza Place Sales<br />Dashboard</h1>
       </div>
-      <div class="total revenue">
-        <p>Total revenue</p>
-        <h6 id="total-revenue"></h6>
-      </div>
-      <div class="total orders">
-        <p>Total orders</p>
-        <h6 id="total-order"></h6>
+      <div class="total">
+        <div class="rev-ord revenue">
+          <p>Total revenue</p>
+          <h6 id="total-revenue"></h6>
+        </div>
+        <div class="rev-ord orders">
+          <p>Total orders</p>
+          <h6 id="total-order"></h6>
+        </div>
       </div>
     </div>
 
-    <div class="charts">
-      <div class="chart">
-        <h2>Percentage decrease on weekends</h2>
-        <canvas id="myPieChart"></canvas>
+    <!-- section content -->
+    <div class="container">
+      <div class="charts">
+        <div class="chart">
+          <h2>Percentage decrease on weekends</h2>
+          <canvas id="myPieChart"></canvas>
+        </div>
+        <div class="chart">
+          <h2>Percentage decrease on weekends</h2>
+          <canvas id="PieChart"></canvas>
+        </div>
+        <div class="chart">
+          <h2>Percentage decrease on weekends</h2>
+          <canvas id="barChart"></canvas>
+        </div>
+        <div class="chart">
+          <h2>Percentage decrease on weekends</h2>
+          <canvas id="barCharts"></canvas>
+        </div>
+        <div class="chart">
+          <h2>Percentage decrease on weekends</h2>
+          <canvas id="lineChart"></canvas>
+        </div>
+        <div class="chart">
+          <h2>Percentage decrease on weekends</h2>
+          <canvas id="lineCharts"></canvas>
+        </div>
+        <div class="chart">
+          <h2>Percentage decrease on weekends</h2>
+          <canvas id="lineChartss"></canvas>
+        </div>
       </div>
-      <div class="chart">
-        <h2>Percentage decrease on weekends</h2>
-        <canvas id="PieChart"></canvas>
-      </div>
-      <div class="chart">
-        <h2>Percentage decrease on weekends</h2>
-        <canvas id="barChart"></canvas>
-      </div>
-      <div class="chart">
-        <h2>Percentage decrease on weekends</h2>
-        <canvas id="barCharts"></canvas>
-      </div>
-      <div class="chart">
-        <h2>Percentage decrease on weekends</h2>
-        <canvas id="lineChart"></canvas>
-      </div>
-      <div class="chart">
-        <h2>Percentage decrease on weekends</h2>
-        <canvas id="lineCharts"></canvas>
-      </div>
-      <div class="chart">
-        <h2>Percentage decrease on weekends</h2>
-        <canvas id="lineChartss"></canvas>
-      </div>
-    </div>
-    s
-
-    <section class="filter">
-      <div class="container">
+      <div class="filter">
         <div class="category dropdown">
           <button onclick="categoryFunc()" class="dropbtn">Category</button>
           <div id="category" class="dropdown-content">
@@ -102,8 +103,8 @@
           </div>
         </div>
       </div>
-    </section>
-    
+    </div>
+
     <footer>
       <p id="footer"></p>
     </footer>

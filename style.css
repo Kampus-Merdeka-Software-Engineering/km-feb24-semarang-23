@@ -14,8 +14,9 @@ body{
 .nav{
     display: flex;
     flex-direction: row;
-    /* padding: 23px 20px; */
-    justify-content: space-around;
+    justify-content: space-between;
+    width: 80%;
+    margin-top: 20px;
 }
 .nav .title{
     display: flex;
@@ -33,69 +34,66 @@ body{
     padding-right: 70px;
 }
 .nav .total{
-    width: 200px;
-    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-left: 50px;
+      
+}
+.nav .total .rev-ord{
+    width: 160px;
+    height: 70px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3);
+    margin: 0 10px;
     margin-top: 28px;
-    /* margin-right: 500px; */
     align-items: center;
     background-color: #d67243;
     color: #ffffff;
     text-align: center;
 }
-.nav .total p{
+.nav .total .rev-ord p{
     font-size: 16px;
 }
-.nav .total h6{
-    font-size: 30px;
+.nav .total .rev-ord h6{
+    font-size: 28px;
     margin-top: -15px;
     font-weight: lighter;
 }
-.nav .revenue{
-    margin-right: -80px;
-}
-.nav .orders{
-    margin-right: 290px;
-}
-/* end navbar */
 
-/* content */
-.content{
-    margin-left: 70px;
-    /* margin-top: -100px; */
-}
-.content .container{
+
+/* content section */
+.container{
     display: flex;
     flex-direction: row;
-    margin-top: 10px;
-} 
-.content .container .chart{
-    margin: 10px;
-    width: 510px;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3)
-}
-.content .container .chart h4{
-    background-color: #e07745;
-    height: 40px;
-    margin-top: -1px;
-    color: #ffffff;
-    text-align: center;
-}
-/* end content */
 
-/* filter */
-.filter{
-    display: flex;
-    justify-content: flex-end;
-    margin: 0 20px;
-    margin-top: -380px;
 }
-.filter .container{
-    margin: 5px 10px;
-    background-color:#d67243 ;
-    width: 20%;
-    height: 50vh;
-    
+.charts{
+    display: grid;
+        grid-template-columns: 2fr 2fr;
+        grid-gap: 20px;
+        width: 80%;
+        padding: 20px;
+        padding-top: 20px;   
+}
+.chart {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.chart h2 {
+    background-color: var(--primary);
+    margin-top: -20px;
+}
+.filter{
+    /* display: none; */
+    margin-top: -80px;
+    margin-left: 7px;
+    width: 15%;
+    padding: 5px;
+    background-color: #d67243;
+    height: 350px;
 }
 .dropbtn{
     background-color: #ffffff;
@@ -104,7 +102,7 @@ body{
     font-size: 16px;
     border: none;
     cursor: pointer;
-    width: 220px;
+    width: 160px;
     margin: 10px 35px;  
 }
 .dropbtn:hover, .dropbtn:focus{
@@ -135,44 +133,8 @@ body{
 .show{
     display: block;
 }
-/* end filter */
+/* end content section */
 
-/* comparison */
-.content .container .comparison{
-    width: 100%;
-    /* margin-top: 20px; */
-    margin-right: 25px;
-}
-/* end comparison */
-
-/* revenue */
-.content .container .revenue {
-    width: 100%;
-    /* margin-top: 20px; */
-    margin-right: 25px;
-}
-/* end revenue */
-
- /* charts  */
- .charts {
-     display: grid;
-     grid-template-columns: 2fr 2fr;
-     grid-gap: 20px;
-     width: 75%;
-     padding: 20px;
-     padding-top: 20px;
- }
-
- .chart {
-     background: #fff;
-     padding: 20px;
-     border-radius: 10px;
-     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
- }
- .chart h2{
-    background-color: var(--primary);
-    margin-top: -20px;
- }
 
 /* footer */
 footer{
@@ -186,48 +148,61 @@ footer{
 
 /* media query */
 
-/* @media screen and (max-width: 1366px){
+@media screen and (max-width: 1280px){
     html{
         font-size: 75%;
-    }   
-} */
-@media screen and (max-width: 768px){
-    .nav{
-        /* flex-direction: column; */
-        flex-wrap: wrap;
-        justify-content: flex-start;
     }
+    .nav{
+        width: 75%;
+    }
+    /* .nav .title img{
+        width: 80px;
+    } */
+    .nav .title h1{
+        font-size: 20px;
+    }
+    .nav .total{
+        /* margin-left: 30px; */
+    }
+    .charts{
+        width: 73%;
+    }
+    .filter {
+        margin-left: 7px;
+        width: 17%;
+        height: 350px;
+    }
+    
+    .dropbtn {
+        font-size: 16px;
+        width: 160px;
+    }     
+}
+@media screen and (max-width: 768px){
     .nav .title img {
         width: 80px;
-        /* padding: 2px 5px 0; */
     }
     
     .nav .title h1 {
         font-size: 17px;
-        text-align: start;
-        margin-right: 50px;
+        text-align: left;
+        /* margin-right: 50px; */
     }
     .nav .total{
-        width: 150px;
-        height: 70px;
-        margin: 10px 7px;
+        width: 80%;
+        margin-right: 20px;
+
     }
-    .nav .total p{
+    .nav .total .rev-ord p{
         font-size: 15px;
     }
-    .nav .total h6{
-        font-size: 25px;
+    .nav .total .rev-ord h6{
+        font-size: 20px;
     }
     .filter{
         display: none;
     }
-
-
-   
-
-    
-
 }
 @media screen and(max-width: 450px){
-
+    
 }

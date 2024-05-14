@@ -1,15 +1,12 @@
 function displayLastUpdatedDate() {
-  const footer = document.getElementById('footer');
-  const lastUpdated = document.lastModified;
-  footer.innerText = `Last Updated: ${new Date(lastUpdated).toLocaleDateString()}`;
+    const footer = document.getElementById('footer');
+    const lastUpdated = document.lastModified;
+    footer.innerText = `Last Updated: ${new Date(lastUpdated).toLocaleDateString()}`;
 }
-
-
 
 function categoryFunc() {
     document.getElementById('category').classList.toggle('show');
 }
-
 
 window.onclick = function (event) {
     if (!event.target.matches('.dropbtn')) {
@@ -22,49 +19,104 @@ window.onclick = function (event) {
             }
         }
     }
+};
+
+function getWeekOfMonth(date) {
+    const givenDate = new Date(date);
+    const weekInMonth = Math.floor((givenDate.getDate() - 1 + getFirstDayOfMonth(date)) / 7) + 1;
+    return weekInMonth;
 }
 
-// Fungsi untuk melakukan fetch data dan menyiapkan data chart
+function getFirstDayOfMonth(date) {
+    const givenDate = new Date(date);
+    const year = givenDate.getFullYear();
+    const month = givenDate.getMonth();
+    const firstDayOfMonth = new Date(year, month, 1);
+    let firstWeekDay = firstDayOfMonth.getDay();
+    // Adjust for Sunday starting the week
+    if (firstWeekDay === 0) {
+        firstWeekDay = 6;
+    } else {
+        firstWeekDay -= 1;
+    }
+    return firstWeekDay;
+}
+
 function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
     const rev = document.getElementById('total-revenue');
-  const ord = document.getElementById('total-order');
+    const ord = document.getElementById('total-order');
+    const dur = document.getElementById('total-durasi');
+    
     fetch(url)
         .then(response => response.json())
         .then(jsonData => {
-            // Convert JSON data into a simpler format
-            const simplifiedData = jsonData.map(item => ({
-                date: moment(item.date).format('dddd'), // Convert date to day
-                month: moment(item.date).format('MMMM'),
-                hour: parseInt(moment(item.time, "HH:mm:ss").format('HH'), 10),
-                size: item.size,
-                category: item.category,
-                order:item.order_id,
-                total: item.quantity * item.price,
-                quantity: item.quantity,
-                price: item.price
-                
-            }));
+            const simplifiedData = jsonData.map(item => {
+                const week = getWeekOfMonth(item.date);
+                return {
+                    date: moment(item.date).format('dddd'), // Convert date to day
+                    month: moment(item.date).format('MMMM'),
+                    hour: parseInt(moment(item.time, "HH:mm:ss").format('HH'), 10),
+                    size: item.size,
+                    category: item.category,
+                    order: item.order_id,
+                    total: item.quantity * item.price,
+                    quantity: item.quantity,
+                    price: item.price,
+                    time: item.time,
+                    week: week
+                };
+            });
 
-            const result = jsonData.reduce((acc, item) => {
-              const revenue = item.quantity * item.price;
-              acc.totalRevenue += revenue;
-              if (item.order_id !== undefined) {
-                  acc.ord += 1;
-              }
-            //   acc.ord += 1;
-              return acc;
-          }, {totalRevenue:0,ord:0});
-        const roundedRevenue = Math.floor(result.totalRevenue);
-    //   const roundedOrder = Math.floor(totalRevenue);
+            const result = simplifiedData.reduce((acc, item) => {
+                const revenue = item.total;
+                acc.totalRevenue += revenue;
+                if (item.order) {
+                    acc.ord += 1;
+                }
+                return acc;
+            }, { totalRevenue: 0, ord: 0 });
+            const roundedRevenue = Math.floor(result.totalRevenue);
 
-      // Tampilkan total revenue ke dalam elemen HTML
-      rev.innerText = `$${roundedRevenue.toLocaleString()}`;
-      ord.innerText = `${result.ord.toLocaleString()}`;
+            fetch('datas.json')
+                .then(response => response.json())
+                .then(data => {
+                    // Temukan waktu terlama dan waktu tercepat
+                    let waktuTerlama = new Date(data[0].date + " " + data[0].time);
+                    let waktuTercepat = new Date(data[0].date + " " + data[0].time);
+                    
+                    data.forEach(function(obj) {
+                        let waktu = new Date(obj.date + " " + obj.time);
+                        if (waktu > waktuTerlama) {
+                            waktuTerlama = waktu;
+                        }
+                        if (waktu < waktuTercepat) {
+                            waktuTercepat = waktu;
+                        }
+                    });
 
-             // Buat array untuk nama hari dalam bahasa Inggris
+                    // Hitung selisih waktu dalam milidetik
+                    let selisihMilidetik = waktuTerlama - waktuTercepat;
+
+                    // Konversi selisih waktu ke format jam:menit:detik
+                    let jam = Math.floor(selisihMilidetik / (1000 * 60 * 60));
+                    selisihMilidetik %= (1000 * 60 * 60);
+                    let menit = Math.floor(selisihMilidetik / (1000 * 60));
+                    selisihMilidetik %= (1000 * 60);
+                    let detik = Math.floor(selisihMilidetik / 1000);
+
+                    // Tampilkan hasil durasi terlama dan tercepat ke dalam elemen HTML dengan ID "total-durasi"
+                    document.getElementById('total-durasi').innerText = `${jam}:${menit}:${detik}`;
+                })
+                .catch(error => console.error('Error:', error));
+            
+            // Tampilkan total revenue ke dalam elemen HTML
+            rev.innerText = `$${result.totalRevenue.toLocaleString()}`;
+            ord.innerText = `${result.ord.toLocaleString()}`;
+            
+            // Buat array untuk nama hari dalam bahasa Inggris
             const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
             const monthsInEnglish = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
+            
             // Fungsi untuk memetakan nama hari ke nomor urutan hari dalam seminggu
             function getDayIndex(dayName) {
                 return daysOfWeek.indexOf(dayName);
@@ -74,19 +126,9 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
                 return monthsInEnglish.indexOf(monthName);
             }
 
-            // Mengurutkan data berdasarkan hari 
-            simplifiedData.sort((a, b) => {
-                const dateA = getDayIndex(a.date);
-                const dateB = getDayIndex(b.date);
-                return dateA - dateB;
-            });
-            
-            // Mengurutkan data berdasarkan bulan
-            simplifiedData.sort((a, b) => {
-                const monthA = parseInt(a.month, 10);
-                const monthB = parseInt(b.month, 10);
-                return monthA - monthB;
-            });
+            //Mengurutkan hari dan bulan 
+            simplifiedData.sort((a, b) => getDayIndex(a.date) - getDayIndex(b.date));
+            simplifiedData.sort((a, b) => getMonthIndex(a.month) - getMonthIndex(b.month));
 
             // filter data based on chartType
             const filteredData = simplifiedData.filter(item => {
@@ -95,6 +137,8 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
                 } else if (chartType === 'month') {
                     return true;
                 }else if (chartType === 'hour') {
+                    return true;
+                } else if (chartType === 'week') {
                     return true;
                 }else if (chartType === 'size') {
                     return true;
@@ -108,22 +152,21 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
                 if (chartType === 'total') {
                     const day = item.date;
                     acc[day] = (acc[day] || 0) + item.total;
-                }else if (chartType === 'month') {
+                } else if (chartType === 'month') {
                     const month = item.month;
-                    acc[month] = (acc[month] || 0);
                     acc[month] = (acc[month] || 0) + item.total;
-                }else if (chartType === 'hour') {
+                } else if (chartType === 'hour') {
                     const hour = item.hour;
-                    acc[hour] = (acc[hour] || 0);
                     acc[hour] = (acc[hour] || 0) + item.total;
-                }else if (chartType === 'size') {
+                } else if (chartType === 'week') {
+                    const week = item.week;
+                    acc[week] = (acc[week] || 0) + item.total;
+                } else if (chartType === 'size') {
                     const size = item.size;
-                    acc[size] = acc[size] || 0;
-                    acc[size] += item.total;
-                } else if(chartType ==='category'){
+                    acc[size] = (acc[size] || 0) + item.total;
+                } else if (chartType === 'category') {
                     const category = item.category;
-                    acc[category] = (acc[category] || 0);
-                    acc[category]++;
+                    acc[category] = (acc[category] || 0) + 1;
                 }
                 return acc;
             }, {});
@@ -131,12 +174,11 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
             const labels = Object.keys(groupedData);
             const values = Object.values(groupedData);
 
-
             const percentages = Object.values(groupedData).map(value => {
                 const percentage = (value / values.reduce((acc, val) => acc + val, 0)) * 100;
                 return percentage.toFixed(2) + '%';
             });
-
+            
             // Array of custom background colors
             const customBackgroundColors = [
                 'rgb(165, 42, 42)',
@@ -148,23 +190,20 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
                 'rgb(189, 183, 107)',
             ];
 
-            // Use custom background colors for chart
             const backgroundColors = customBackgroundColors.slice(0, labels.length);
 
             const chartData = {
-                labels:labels.map((label,index) => `${label} (${percentages[index]}%)`) ,
+                labels: labels.map((label, index) => `${label} (${percentages[index]}%)`),
                 datasets: [{
-                    // label: chartType === 'total' ? 'total revenue' : 'revenue per size',
                     data: values,
                     backgroundColor: backgroundColors,
-                    borderColor: backgroundColors, // Use the same color for border
+                    borderColor: backgroundColors,
                     borderWidth: 1
                 }]
             };
-            
 
             const chartConfig = {
-                type: chartStyle, // Tipe chart (pie atau doughnut)
+                type: chartStyle,
                 data: chartData,
                 options: {
                     responsive: false,
@@ -173,11 +212,11 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
                             position: 'right',
                         },
                     },
-                    indexAxis:'x',
+                    indexAxis: 'x',
                     maintainAspectRatio: false,
                     tooltips: {
                         callbacks: {
-                            label: function(tooltipItem, data) {
+                            label: function (tooltipItem, data) {
                                 const label = data.labels[tooltipItem.index] || '';
                                 const value = data.datasets[0].data[tooltipItem.index] || '';
                                 const percentage = percentages[tooltipItem.index] || '';
@@ -188,43 +227,13 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle) {
                 }
             };
 
-            // Panggil fungsi untuk membuat chart
             new Chart(ctx, chartConfig);
             displayLastUpdatedDate();
-
         })
         .catch(error => {
             console.error('Error fetching data:', error);
         });
 }
-
-// document.addEventListener('DOMContentLoaded', () => {
-//   const rev = document.getElementById('total-revenue');
-//   const ord = document.getElementById('total-order');
-
-//   fetch('datas.json')
-//     .then(response => response.json())
-//       .then(data => {
-//           // Hitung total sum(quantity * price) menggunakan fungsi reduce
-//           const result = data.reduce((acc, item) => {
-//               const revenue = item.quantity * item.price;
-//               acc.totalRevenue += revenue;
-//               if (item.order_id !== undefined) {
-//                   acc.ord += 1;
-//               }
-//             //   acc.ord += 1;
-//               return acc;
-//           }, {totalRevenue:0,ord:0});
-//         const roundedRevenue = Math.floor(result.totalRevenue);
-//     //   const roundedOrder = Math.floor(totalRevenue);
-
-//       // Tampilkan total revenue ke dalam elemen HTML
-//       rev.innerText = `$${roundedRevenue.toLocaleString()}`;
-//       ord.innerText = `${result.ord.toLocaleString()}`;
-//     })
-//     .catch(error => console.error('Error reading JSON file:', error));
-// });
-
 
 // Menggunakan fungsi fetchDataAndPrepareChart untuk membuat chart
 document.addEventListener('DOMContentLoaded', () => {
@@ -237,16 +246,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchDataAndPrepareChart('datas.json', ctx1,'size','doughnut');
 });
+
 document.addEventListener('DOMContentLoaded', () => {
     const ctx2 = document.getElementById('barChart').getContext('2d');
 
-    fetchDataAndPrepareChart('datas.json', ctx2,'category','bar');
+    fetchDataAndPrepareChart('datas.json', ctx2,'week','bar');
 });
 
 document.addEventListener('DOMContentLoaded', () => {
     const ctx2 = document.getElementById('barCharts').getContext('2d');
 
-    fetchDataAndPrepareChart('datas.json', ctx2,'total','bar');
+    fetchDataAndPrepareChart('datas.json', ctx2,'week','bar');
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -265,8 +275,3 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchDataAndPrepareChart('datas.json', ctx3,'hour','line');
 });
-
-
-
-
-

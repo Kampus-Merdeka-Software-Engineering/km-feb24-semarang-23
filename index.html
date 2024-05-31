@@ -1,121 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Pizza Sales</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
     <div class="nav container">
-      <div class="title">
-        <img src="img/unduhan.png" alt="logo" />
-        <h1>Pizza Place Sales<br />Dashboard</h1>
-      </div>
-      <div class="total">
-        <div class="rev-ord revenue">
-          <p>Total revenue</p>
-          <h6 id="total-revenue"></h6>
+        <div class="title">
+            <img src="img/unduhan.png" alt="logo">
+            <h1>Pizza Place Sales<br>Dashboard</h1>
         </div>
-        <div class="rev-ord orders">
-          <p>Total orders</p>
-          <h6 id="total-order"></h6>
+        <div class="total">
+            <div class="rev-ord revenue">
+                <p>Total revenue</p>
+                <h6 id="total-revenue"></h6>
+            </div>
+            <div class="rev-ord orders">
+                <p>Total orders</p>
+                <h6 id="total-order"></h6>
+            </div>
+            <div class="rev-ord orders">
+                <p>Total durasi</p>
+                <h6 id="total-durasi"></h6>
+            </div>
         </div>
-        <div class="rev-ord orders">
-          <p>Total durasi</p>
-          <h6 id="total-durasi"></h6>
-        </div>
-      </div>
     </div>
 
     <!-- section content -->
     <div class="container">
-      <div class="charts">
-        <div class="chart">
-          <h2>Percentage decrease on weekends</h2>
-          <canvas id="myPieChart"></canvas>
+        <div class="charts">
+            <div class="chart">
+                <h2>Percentage decrease on weekends</h2>
+                <canvas id="myPieChart"></canvas>
+            </div>
+            <div class="chart">
+                <h2>Percentage decrease on weekends</h2>
+                <canvas id="PieChart"></canvas>
+            </div>
+            <div class="chart">
+                <h2>Percentage decrease on weekends</h2>
+                <canvas id="barChart"></canvas>
+            </div>
+            <div class="chart">
+                <h2>Percentage decrease on weekends</h2>
+                <canvas id="barCharts"></canvas>
+            </div>
+            <div class="chart">
+                <h2>Percentage decrease on weekends</h2>
+                <canvas id="lineChart"></canvas>
+            </div>
+            <div class="chart">
+                <h2>Percentage decrease on weekends</h2>
+                <canvas id="lineCharts"></canvas>
+            </div>
+            <div class="chart">
+                <h2>Percentage decrease on weekends</h2>
+                <canvas id="lineChartss"></canvas>
+            </div>
         </div>
-        <div class="chart">
-          <h2>Percentage decrease on weekends</h2>
-          <canvas id="PieChart"></canvas>
-        </div>
-        <div class="chart">
-          <h2>Percentage decrease on weekends</h2>
-          <canvas id="barChart"></canvas>
-        </div>
-        <div class="chart">
-          <h2>Percentage decrease on weekends</h2>
-          <canvas id="barCharts"></canvas>
-        </div>
-        <div class="chart">
-          <h2>Percentage decrease on weekends</h2>
-          <canvas id="lineChart"></canvas>
-        </div>
-        <div class="chart">
-          <h2>Percentage decrease on weekends</h2>
-          <canvas id="lineCharts"></canvas>
-        </div>
-        <div class="chart">
-          <h2>Percentage decrease on weekends</h2>
-          <canvas id="lineChartss"></canvas>
-        </div>
-      </div>
-      <div class="filter">
-        <div class="category dropdown">
-          <button onclick="categoryFunc()" class="dropbtn">Category</button>
-          <div id="category" class="dropdown-content">
-            <a href="#">Veggie</a>
-            <a href="#">Supreme</a>
-            <a href="#">Classic</a>
-            <a href="#">Chicken</a>
+        <div class="filter">
+            <div class="dropdown">
+                <button onclick="toggleDropdown('categoryDropdown')" class="dropbtn">Select Category</button>
+                <div id="categoryDropdown" class="dropdown-content">
+                  <input type="text" placeholder="Search.." id="categorySearch" onkeyup="filterFunction('categoryDropdown', 'categorySearch')">
+                </div>
+                <input type="text" id="categoryDropdownSelected" readonly>
+            </div>
+            
+            <div class="dropdown">
+                <button onclick="toggleDropdown('nameDropdown')" class="dropbtn">Select Name</button>
+                <div id="nameDropdown" class="dropdown-content">
+                  <input type="text" placeholder="Search.." id="nameSearch" onkeyup="filterFunction('nameDropdown', 'nameSearch')">
+                </div>
+                <input type="text" id="nameDropdownSelected" readonly>
+            </div>
+            <div class="dropdown">
+                <button onclick="toggleDropdown('dateDropdown')" class="dropbtn">Select Date</button>
+                <div id="dateDropdown" class="dropdown-content">
+                  <input type="text" placeholder="Search.." id="dateSearch" onkeyup="filterFunction('dateDropdown', 'dateSearch')">
+                </div>
+                <input type="text" id="dateDropdownSelected" readonly>
+            </div>
           </div>
-        </div>
-        <div class="pizza_types dropdown">
-          <button onclick="categoryFunc()" class="dropbtn">Pizza_types</button>
-          <div id="category" class="dropdown-content">
-            <a href="#">Veggie</a>
-            <a href="#">Supreme</a>
-            <a href="#">Classic</a>
-            <a href="#">Chicken</a>
-          </div>
-        </div>
-        <div class="month dropdown">
-          <button onclick="categoryFunc()" class="dropbtn">Month</button>
-          <div id="category" class="dropdown-content">
-            <a href="#">Veggie</a>
-            <a href="#">Supreme</a>
-            <a href="#">Classic</a>
-            <a href="#">Chicken</a>
-          </div>
-        </div>
-        <div class="date dropdown">
-          <button onclick="categoryFunc()" class="dropbtn">Date</button>
-          <div id="category" class="dropdown-content">
-            <a href="#">Veggie</a>
-            <a href="#">Supreme</a>
-            <a href="#">Classic</a>
-            <a href="#">Chicken</a>
-          </div>
-        </div>
-        <div class="week dropdown">
-          <button onclick="categoryFunc()" class="dropbtn">Week</button>
-          <div id="category" class="dropdown-content">
-            <a href="#">Veggie</a>
-            <a href="#">Supreme</a>
-            <a href="#">Classic</a>
-            <a href="#">Chicken</a>
-          </div>
-        </div>
-      </div>
     </div>
 
     <footer>
-      <p id="footer"></p>
+        <p id="footer"></p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="node_modules/moment/moment.js"></script>
     <script src="script.js"></script>
-  </body>
+    <!-- <script src="script2.js"></script> -->
+</body>
 </html>

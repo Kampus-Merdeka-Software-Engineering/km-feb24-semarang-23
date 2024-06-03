@@ -1,0 +1,161 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #ffffff 0%, #fdfdfb 100%);
+  padding-top: 65px; /* Menambahkan ruang untuk header */
+  padding-bottom: 80px; /* Menambahkan ruang untuk footer */
+}
+
+header {
+  position: fixed; /* Mengatur header agar tetap berada di atas halaman */
+  top: 0; /* Menempatkan header di bagian paling atas */
+  width: 100%; /* Membuat header menempati lebar penuh */
+  background-color: #FED049;
+  color: black;
+  padding: 15px;
+  text-align: center;
+  z-index: 999; /* Menentukan urutan tampilan, pastikan lebih tinggi dari konten lain */
+}
+
+nav {
+  margin-left: 20px; /* Jarak antara judul header dan navbar */
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: black;
+  padding: 8px 0;
+}
+
+nav ul li a:hover {
+  color: white; /* Mengubah warna teks saat dihover */
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px; /* Menambahkan margin atas untuk memberikan ruang di bawah header */
+  padding-bottom: 20px; /* Menambahkan padding bawah untuk memberikan ruang di atas footer */
+}
+
+.accordion {
+  max-width: 770px; /* Adjust the max-width to fit your webpage */
+  margin: 20px auto; /* Center the accordion */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  overflow: hidden;
+  font-family: "Quicksand", sans-serif;
+  background: #FED049;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center-align content horizontally */
+  padding: 20px;
+}
+
+.content img {
+  max-width: 100%; /* Ensure images don't exceed their container's width */
+  height: auto; /* Maintain aspect ratio */
+  margin-top: 20px; /* Add some space between images */
+}
+
+.accordion__label,
+.accordion__content {
+  padding: 20px; /* Increase padding for better spacing */
+}
+
+.accordion__label {
+  display: block;
+  color: black;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.1s;
+}
+
+.accordion__label:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.accordion__label::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 20px;
+  width: 12px;
+  height: 6px;
+  background-image: url('data:image/svg+xml;utf8,<svg width="100" height="50" xmlns="http://www.w3.org/2000/svg"><polygon points="0,0 100,0 50,50" style="fill:%23FFFFFF99;" /></svg>');
+  background-size: contain;
+  transition: transform 0.4s;
+}
+
+.accordion__content {
+  background: #ffffff;
+  line-height: 1.6;
+  font-size: 0.85em;
+  display: none;
+}
+
+.accordion__input {
+  display: none;
+}
+
+.accordion__input:checked ~ .accordion__content {
+  display: block;
+}
+
+.accordion__input:checked ~ .accordion__label::after {
+  transform: translateY(-50%) rotate(0.5turn);
+}
+
+.image-container {
+  overflow: hidden;
+  position: relative;
+  max-width: 100%; /* Ensure the container doesn't exceed the viewport */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 18px 0;
+  transition: transform 0.25s ease;
+  cursor: pointer;
+}
+
+img.zoomed {
+  transform: scale(2); /* Adjust scale as needed */
+}
+
+footer {
+  background-color: #FED049;
+  color: black;
+  text-align: center;
+  padding: 15px 0; /* Menambahkan padding atas dan bawah */
+  position: fixed; /* Mengatur posisi footer */
+  bottom: 0; /* Menempatkan footer di bagian bawah halaman */
+  width: 100%; /* Memastikan footer menutupi seluruh lebar halaman */
+  z-index: 999; /* Z-index lebih tinggi dari footer */
+}

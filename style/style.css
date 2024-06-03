@@ -161,9 +161,9 @@ footer{
     .nav .title h1{
         font-size: 20px;
     }
-    .nav .total{
-        /* margin-left: 30px; */
-    }
+    /* .nav .total{
+        margin-left: 30px;
+    } */
     .charts{
         width: 73%;
     }

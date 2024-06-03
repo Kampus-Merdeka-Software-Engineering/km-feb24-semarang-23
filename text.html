@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filter</title>
+    <!-- Add Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="style/Category.js"></script>
+    <!-- <script src="Size.js"></script> -->
+    <script src="node_modules/moment/moment.js"></script>
+    <!-- Add FontAwesome icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link rel="stylesheet" href="style/test.css">
+</head>
+<body>
+    <div class="nav container">
+        <div class="total">
+            <div class="rev-ord revenue">
+                <p>Total revenue</p>
+                <h6 id="total-revenue"></h6>
+            </div>
+            <div class="rev-ord orders">
+                <p>Total orders</p>
+                <h6 id="total-order"></h6>
+            </div>
+        </div>
+    </div>
+    <section class="filter">
+        <div class="dropdown">
+            <button onclick="toggleDropdown('categoryDropdown')" class="dropbtn">Category
+                <i class="fas fa-caret-down" id="pad"></i>
+            </button>
+            <div id="categoryDropdown" class="dropdown-content">
+                <label><input type="checkbox" class="categoryCheckbox" value="Classic"> Classic</label><br>
+                <label><input type="checkbox" class="categoryCheckbox" value="Veggie"> Veggie</label><br>
+                <label><input type="checkbox" class="categoryCheckbox" value="Supreme"> Supreme</label><br>
+                <label><input type="checkbox" class="categoryCheckbox" value="Chicken"> Chicken</label><br>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button onclick="toggleDropdown('nameDropdown')" class="dropbtn">Name
+                <i class="fas fa-caret-down" id="pad"></i>
+            </button>
+            <div id="nameDropdown" class="dropdown-content">
+                <label><input type="checkbox" class="nameCheckbox" value="The Italian Vegetables Pizza"> The Italian Vegetables Pizza </label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Calabrese Pizza"> The Calabrese Pizza </label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Sicilian Pizza"> The Sicilian Pizza </label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Green Garden Pizza"> The Green Garden Pizza </label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Mediterranean Pizza"> The Mediterranean Pizza </label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Mexicana Pizza"> The Mexicana Pizza </label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Spinach and Feta Pizza"> The Spinach and Feta Pizza </label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Vegetables and Vegetables Pizza"> The Vegetables and Vegetables Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Pepperoni Pizza"> The Pepperoni Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Hawaiian Pizza"> The Hawaiian Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Pepperoni, Mushroom, and Peppers Pizza"> The Pepperoni, Mushroom, and Peppers Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Five Cheese Pizza"> The Five Cheese Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Classic Deluxe Pizza"> The Classic Deluxe Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Italian Capocollo Pizza"> The Italian Capocollo Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Napolitana Pizza"> The Napolitana Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Greek Pizza"> The Greek Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Barbecue Chicken Pizza"> The Barbecue Chicken Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The California Chicken Pizza"> The California Chicken Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Chicken Alfredo Pizza"> The Chicken Alfredo Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Chicken Pesto Pizza"> The Chicken Pesto Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Southwest Chicken Pizza"> The Southwest Chicken Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Thai Chicken Pizza"> The Thai Chicken Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Italian Supreme Pizza"> The Italian Supreme Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Pepper Salami Pizza"> The Pepper Salami Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Prosciutto and Arugula Pizza"> The Prosciutto and Arugula Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Soppressata Pizza"> The Soppressata Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Spicy Italian Pizza"> The Spicy Italian Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Spinach Supreme Pizza"> The Spinach Supreme Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Spinach Pesto Pizza"> The Spinach Pesto Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Four Cheese Pizza"> The Four Cheese Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Big Meat Pizza"> The Big Meat Pizza</label><br>
+                <label><input type="checkbox" class="nameCheckbox" value="The Brie Carre Pizza"> The Brie Carre Pizza</label><br>
+            </div>
+        </div>
+        <div class="dropdown">
+            <button onclick="toggleDropdown('monthDropdown')" class="dropbtn">Month
+                <i class="fas fa-caret-down" id="pad"></i>
+            </button>
+            <div id="monthDropdown" class="dropdown-content">
+                <label><input type="checkbox" class="monthCheckbox" value="January"> January </label><br>
+                <label><input type="checkbox" class="monthCheckbox" value="February"> February </label><br>
+                <label><input type="checkbox" class="monthCheckbox" value="March"> March </label><br>
+                <label><input type="checkbox" class="monthCheckbox" value="April"> April </label><br>
+                <label><input type="checkbox" class="monthCheckbox" value="May"> May </label><br>
+                <label><input type="checkbox" class="monthCheckbox" value="June"> June </label><br>
+                <label><input type="checkbox" class="monthCheckbox" value="July"> July </label><br>
+                <label><input type="checkbox" class="monthCheckbox" value="August"> August </label><br>
+                <label><input type="checkbox" class="monthCheckbox" value="September"> September </label><br>
+                <label><input type="checkbox" class="monthCheckbox" value="November"> November </label><br>
+                <label><input type="checkbox" class="monthCheckbox" value="December"> December </label><br>
+            </div>
+        </div>
+    </section>
+
+    <!-- Place the chart below the filter section -->
+    <section class="chart-section">
+        <div class="chart">
+            <canvas id="weekChart"  width="400" height="200" ></canvas>
+        </div>
+        <div class="chart">
+            <canvas id="sizeChart"  width="400" height="200" ></canvas>
+        </div>
+        <div class="chart">
+            <canvas id="dayChart"  width="400" height="200" ></canvas>
+        </div>
+        <div class="chart">
+            <canvas id="monthChart"  width="400" height="200" ></canvas>
+        </div>
+        <div class="chart">
+            <canvas id="timeChart"  width="400" height="200" ></canvas>
+        </div>
+    </section>
+</body>
+</html>

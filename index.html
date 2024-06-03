@@ -3,99 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Pizza Sales</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style/style2.css">
+    <title>Pizza Place Sales</title>
+    <link rel="icon" href="images/number-23-logo.png" type="image/png"> <!-- Menambahkan favicon -->
+    <style>
+        @keyframes moveBackground {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 50% 50%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('background.png'); /* Overlay dengan gradasi warna */
+            background-size: cover; /* Menyesuaikan ukuran gambar agar menutupi seluruh halaman */
+            background-position: 0% 0%; /* Memposisikan gambar latar belakang ke posisi awal */
+            background-attachment: fixed; /* Menjaga gambar latar belakang tetap di tempat saat pengguliran */
+            background-color: #f0f0f0; /* Warna latar belakang cadangan */
+            min-height: 100vh; /* Set tinggi minimum body setidaknya setinggi layar pengguna */
+            animation: moveBackground 30s infinite; /* Animasi background image */
+        }
+
+        .logo {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            width: 40px; /* Atur lebar logo */
+            height: auto; /* Biarkan ketinggian menyesuaikan proporsi */
+        }
+
+        .intro h2 {
+            padding-top: 150px;
+            margin-bottom: 10px; /* Merapatkan jarak antara h2 dan paragraf pada .intro */
+        }
+    </style>
 </head>
 <body>
-    <div class="nav container">
-        <div class="title">
-            <img src="img/unduhan.png" alt="logo">
-            <h1>Pizza Place Sales<br>Dashboard</h1>
-        </div>
-        <div class="total">
-            <div class="rev-ord revenue">
-                <p>Total revenue</p>
-                <h6 id="total-revenue"></h6>
-            </div>
-            <div class="rev-ord orders">
-                <p>Total orders</p>
-                <h6 id="total-order"></h6>
-            </div>
-            <div class="rev-ord orders">
-                <p>Total durasi</p>
-                <h6 id="total-durasi"></h6>
-            </div>
-        </div>
-    </div>
-
-    <!-- section content -->
-    <div class="container">
-        <div class="charts">
-            <div class="chart">
-                <h2>Percentage decrease on weekends</h2>
-                <canvas id="myPieChart"></canvas>
-            </div>
-            <div class="chart">
-                <h2>Percentage decrease on weekends</h2>
-                <canvas id="PieChart"></canvas>
-            </div>
-            <div class="chart">
-                <h2>Percentage decrease on weekends</h2>
-                <canvas id="barChart"></canvas>
-            </div>
-            <div class="chart">
-                <h2>Percentage decrease on weekends</h2>
-                <canvas id="barCharts"></canvas>
-            </div>
-            <div class="chart">
-                <h2>Percentage decrease on weekends</h2>
-                <canvas id="lineChart"></canvas>
-            </div>
-            <div class="chart">
-                <h2>Percentage decrease on weekends</h2>
-                <canvas id="lineCharts"></canvas>
-            </div>
-            <div class="chart">
-                <h2>Percentage decrease on weekends</h2>
-                <canvas id="lineChartss"></canvas>
-            </div>
-        </div>
-        <div class="filter">
-            <div class="dropdown">
-                <button onclick="toggleDropdown('categoryDropdown')" class="dropbtn">Select Category</button>
-                <div id="categoryDropdown" class="dropdown-content">
-                  <input type="text" placeholder="Search.." id="categorySearch" onkeyup="filterFunction('categoryDropdown', 'categorySearch')">
-                </div>
-                <input type="text" id="categoryDropdownSelected" readonly>
-            </div>
-            
-            <div class="dropdown">
-                <button onclick="toggleDropdown('nameDropdown')" class="dropbtn">Select Name</button>
-                <div id="nameDropdown" class="dropdown-content">
-                  <input type="text" placeholder="Search.." id="nameSearch" onkeyup="filterFunction('nameDropdown', 'nameSearch')">
-                </div>
-                <input type="text" id="nameDropdownSelected" readonly>
-            </div>
-            <div class="dropdown">
-                <button onclick="toggleDropdown('dateDropdown')" class="dropbtn">Select Date</button>
-                <div id="dateDropdown" class="dropdown-content">
-                  <input type="text" placeholder="Search.." id="dateSearch" onkeyup="filterFunction('dateDropdown', 'dateSearch')">
-                </div>
-                <input type="text" id="dateDropdownSelected" readonly>
-            </div>
-          </div>
-    </div>
-
+    <header>
+        <img src="images/number-23-logo.png" class="logo" alt="Logo">
+        <nav>
+            <ul>
+                <li class="li-Home active"><a href="#">Home</a></li>
+                <li class="li-Dashboard"><a href="text.html">Text</a></li>
+                <li class="li-Teams"><a href="profile.html">Teams</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="intro">
+            <h2>Welcome To Our Website</h2>
+            <p>Website ini berisi analisis data untuk mengetahui tren penjualan,</p>
+            <p>dan faktor-faktor yang mempengaruhi kinerja penjualan.</p>
+            <a href="project.html" class="btn">Capstone Project</a>
+        </section>
+    </main>
     <footer>
-        <p id="footer"></p>
+        <p>&copy; 2024 Pizza Place Sales</p>
     </footer>
-
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-    <script src="node_modules/moment/moment.js"></script>
-    <script src="script.js"></script>
-    <!-- <script src="script2.js"></script> -->
+    <script src="style/script.js"></script>
 </body>
 </html>

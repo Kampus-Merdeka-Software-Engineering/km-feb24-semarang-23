@@ -17,123 +17,165 @@ body {
 /* navbar */
 .nav-container {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     background-color: rgba(255, 234, 208,0.5);
-    height: 170px;
+    padding: 10px;
+    /* height: 190px; */
 }
 
 .nav-container .title {
-    margin-top: 30px;
-    padding-left: 15px;
-    margin-right: 80px;
+    margin-left: 15px;
 }
 
 .nav-container .title h1 {
     color: var(--title-color);
     text-align: start;
     text-transform: uppercase;
+    font-size: 2rem;
 }
 .nav-container .total{
-    margin: 20px 10px;
-    display: inline-flex;
-    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 10px 0;
+    gap: 10px;
+
+    /* display: inline-flex;
+    margin-bottom: 80px;
+    margin-left: 85px; */
 }
 .nav-container .total .rev-ord{
     background-color: var(--primary);
-    margin:10px;
-    width: 200px;
+    flex: 1 1 200px;
     text-align: center;
-    height: 75px;
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    max-width: 200px;
+    max-height: 95px;
+
     
 }
 .nav-container .total .filter{
-    margin: 35px 0;
-    
+    flex: 1 1 100px;
+    /* margin: 35px 10px;    */
+}
+select{
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+
+}
+select:focus{
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+select option{
+    background-color: #fff;
+    padding: 5px;
+}
+select option:hover{
+    background-color: rgba(255, 234, 208, 0.5);
 }
 .nav-container .total .rev-ord p {
-    color: #fff;
-    font-size: 16px;
+    font-size: 1rem;
+    margin: 0;
 }
 
 .nav-container .total .rev-ord h6 {
-    color: #fff;
-    font-size: 25px;
-    margin-top: -10px;
+    font-size: 1.5rem;
+    margin: 5px 0 0 0;
 }
+
+/* container */
 .container{
-    margin: 25px 140px;
-    margin-top: 25px;
     display: flex;
-    justify-content: center;
-    padding: 1px 16px;
     flex-wrap: wrap;
-    align-items: center;
-    width: 80%;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
+    justify-content: center;
+    margin-top: 25px;
+    padding: 10px;
+    box-shadow:0 8px 16px 0 rgba(0, 0, 0, 0.3)
 }
-
 .container .chart{
-    /* margin-top: -100px; */
+    flex: 1 1 300px;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.3);
-    width: 500px;
     margin: 10px;
+    padding: 20px;
 }
 
-.container .chart h3{
+.container .chart h3 {
     text-align: center;
-    font-size: 20px;
+    font-size: 1.5rem;
     color: #a34114;
-    margin-bottom: 3px;
-}
-.dropbtn {
-    background-color: #ffffff;
-    color: black;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-    /* width: 180px; */
-    margin: 10px 35px;
-}
-
-.dropbtn:hover,
-.dropbtn:focus {
-    background-color: #a34114;
-}
-
-.dropdown {
-    position: relative;
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #ffffff;
-    min-width: 160px;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    z-index: 1;
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-}
-
-.dropdown-content a:hover {
-    background-color: #ddd;
-}
-
-.show {
-    display: block;
+    margin-bottom: 10px;
 }
 
 /* footer */
 footer {
-    margin-left: 100px;
-    margin-left: 25px;
-    margin-top: -10px;
+    margin: 10px 25px;
     color: #655f5f;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1200px) {
+    html {
+        font-size: 14px;
+    }
+
+    .nav-container .title h1 {
+        font-size: 1.75rem;
+    }
+}
+
+@media screen and (max-width: 769px) {
+    .nav-container .title h1 {
+        font-size: 1.5rem;
+    }
+
+    .nav-container .total .rev-ord {
+        padding: 5px;
+    }
+
+    .nav-container .total .rev-ord p {
+        font-size: 0.75rem;
+    }
+
+    .nav-container .total .rev-ord h6 {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    body {
+        margin: 5px;
+        padding: 5px;
+        font-size: 14px;
+    }
+
+    .nav-container .title h1 {
+        font-size: 1.25rem;
+    }
+
+    .container .chart {
+        flex: 1 1 100%;
+        margin: 5px 0;
+    }
+
+    .nav-container .total {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .nav-container .total .rev-ord,
+    .nav-container .total .filter {
+        flex: 1 1 100%;
+    }
+
+    select {
+        font-size: 0.875rem;
+    }
 }

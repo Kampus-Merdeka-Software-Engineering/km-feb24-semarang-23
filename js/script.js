@@ -61,10 +61,12 @@ function updateFilters(jsonData) {
   populateFilterElement("monthFilter", uniqueMonth, "all");
 }
 
-
+let myCharts={};
 
 // Fungsi untuk melakukan fetch data dan menyiapkan data chart
-function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle, filterCategory = "all", filterMonth = "all", filterName = "all") {
+function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle, filterCategory = 'all', filterName = 'all', filterMonth = 'all') {
+    // console.log(`Filter values - Category: ${filterCategory}, Name: ${filterName}, Month: ${filterMonth}`);
+
     const rev = document.getElementById('total-revenue');
     const ord = document.getElementById('total-order');
     
@@ -91,12 +93,14 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle, filterCategor
             updateFilters(jsonData);
             // console.log(uniqueMonth);
 
-            simplifiedData.filter(item => {
+            const filteredData=simplifiedData.filter(item => {
                 const isCategoryMatch = filterCategory === "all" || item.category === filterCategory;
                 const isNameMatch = filterName === "all" || item.name === filterName;
                 const isMonthMatch = filterMonth === "all" || moment(item.date).format('MMMM') === filterMonth;
                 return isCategoryMatch && isNameMatch && isMonthMatch;
             });
+
+            // console.log('Filtered data:', filteredData);
 
             const result = jsonData.reduce((acc, item) => {
               const revenue = item.quantity * item.price;
@@ -137,20 +141,7 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle, filterCategor
                 const monthB = parseInt(b.month, 10);
                 return monthA - monthB;
             });
-            // filter data based on chartType
-            const filteredData = simplifiedData.filter(item => {
-                if (chartType === 'total') {
-                    return true;
-                } else if (chartType === 'month') {
-                    return true;
-                }else if (chartType === 'hour') {
-                    return true;
-                }else if (chartType === 'size') {
-                    return true;
-                }else if (chartType === 'category') {
-                    return true;
-                }
-            });
+           
             // group data and calculate total revenue per size
             const groupedData = filteredData.reduce((acc, item) => {
                 if (chartType === 'total') {
@@ -175,6 +166,7 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle, filterCategor
                 }
                 return acc;
             }, {});
+
             const labels = Object.keys(groupedData);
             const values = Object.values(groupedData);
             const percentages = Object.values(groupedData).map(value => {
@@ -229,9 +221,11 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle, filterCategor
                     },
                 }
             };
+            if (myCharts[ctx.canvas.id]) {
+                myCharts[ctx.canvas.id].destroy();
+            }
 
-            // Panggil fungsi untuk membuat chart
-            new Chart(ctx, chartConfig);
+            myCharts[ctx.canvas.id] = new Chart(ctx, chartConfig);
             displayLastUpdatedDate();
 
         })
@@ -240,73 +234,95 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle, filterCategor
         });
 }
 
-
-let jsonData;
-fetchDataAndPrepareChart();
-
-function updateCharts(ctx, chartType, chartStyle, filterCategory, filterName, filterMonth, filteredData) {
-  // ... (Your chart library's logic to update charts with filteredData)
-}
-
-function handleFilterChange() {
-    if (jsonData) {
-        const selectedCategory = document.getElementById("categoryFilter").value;
-        const actFilterName = document.getElementById("nameFilter").value;
-        const actFilterMonth = document.getElementById("monthFilter").value;
-        let filteredData = [...jsonData];
-
-        if (selectedCategory !== "all") {
-            filteredData = filteredData.filter(item => item.category === selectedCategory);
-        }
-
-        if (actFilterName !== "all") {
-            filteredData = filteredData.filter(item => item.name === actFilterName);
-        }
-
-        if (actFilterMonth !== "all") {
-            filteredData = filteredData.filter(item => item.month === actFilterMonth);
-        }
-        updateCharts(ctx1, 'total', 'pie', selectedCategory, actFilterName, actFilterMonth, filteredData);
-    } else {
-        console.error('Data is not yet available');
-    }
-      
-}
-
 // Menggunakan fungsi fetchDataAndPrepareChart untuk membuat chart
 document.addEventListener('DOMContentLoaded', () => {
     const ctx1 = document.getElementById('weekChart').getContext('2d');
 
-    document.getElementById('categoryFilter').addEventListener('change', () => {
-        const selectedCategory = document.getElementById('categoryFilter').value;
-        const actFilterName = document.getElementById('nameFilter').value;
-        const actFilterMonth = document.getElementById('monthFilter').value;
-        updateCharts( 'datas.json',ctx1, 'total', 'pie', selectedCategory, actFilterName, actFilterMonth);
-        fetchDataAndPrepareChart('datas.json', ctx1,'total','pie', selectedCategory, actFilterName,actFilterMonth);
-    });
+    fetchDataAndPrepareChart('datas.json', ctx1, 'total', 'pie');
+    
+    const filters = ['categoryFilter', 'nameFilter', 'monthFilter'];
+    
 
+    filters.forEach(filterId => {
+
+        document.getElementById(filterId).addEventListener('change', () => {
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            const actFilterName = document.getElementById('nameFilter').value;
+            const actFilterMonth = document.getElementById('monthFilter').value;
+    
+            fetchDataAndPrepareChart('datas.json', ctx1,'total','pie', selectedCategory, actFilterName,actFilterMonth);
+        });
+    })
 });
 document.addEventListener('DOMContentLoaded', () => {
     const ctx2 = document.getElementById('sizeChart').getContext('2d');
 
-    fetchDataAndPrepareChart('datas.json', ctx2,'size','doughnut');
+    fetchDataAndPrepareChart('datas.json', ctx2, 'size', 'doughnut');
+    const filters = ['categoryFilter', 'nameFilter', 'monthFilter'];
+
+    filters.forEach(filterId => {
+
+        document.getElementById(filterId).addEventListener('change', () => {
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            const actFilterName = document.getElementById('nameFilter').value;
+            const actFilterMonth = document.getElementById('monthFilter').value;
+    
+            fetchDataAndPrepareChart('datas.json', ctx2, 'size', 'doughnut', selectedCategory, actFilterName,actFilterMonth);
+        });
+    })
 });
 document.addEventListener('DOMContentLoaded', () => {
     const ctx3 = document.getElementById('dayChart').getContext('2d');
 
-    fetchDataAndPrepareChart('datas.json', ctx3,'category','bar');
+    fetchDataAndPrepareChart('datas.json', ctx3, 'category', 'bar');
+    const filters = ['categoryFilter', 'nameFilter', 'monthFilter'];
+
+    filters.forEach(filterId => {
+
+        document.getElementById(filterId).addEventListener('change', () => {
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            const actFilterName = document.getElementById('nameFilter').value;
+            const actFilterMonth = document.getElementById('monthFilter').value;
+    
+            fetchDataAndPrepareChart('datas.json', ctx3, 'category', 'bar', selectedCategory, actFilterName,actFilterMonth);
+        });
+    })
 });
 
 document.addEventListener('DOMContentLoaded', () => {
     const ctx4 = document.getElementById('monthChart').getContext('2d');
 
-    fetchDataAndPrepareChart('datas.json', ctx4,'total','bar');
+    fetchDataAndPrepareChart('datas.json', ctx4, 'total', 'bar');
+    const filters = ['categoryFilter', 'nameFilter', 'monthFilter'];
+
+    filters.forEach(filterId => {
+
+        document.getElementById(filterId).addEventListener('change', () => {
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            const actFilterName = document.getElementById('nameFilter').value;
+            const actFilterMonth = document.getElementById('monthFilter').value;
+    
+            fetchDataAndPrepareChart('datas.json', ctx4, 'total', 'bar', selectedCategory, actFilterName,actFilterMonth);
+        });
+    })
 });
 
 document.addEventListener('DOMContentLoaded', () => {
     const ctx5 = document.getElementById('timeChart').getContext('2d');
 
-    fetchDataAndPrepareChart('datas.json', ctx5,'total','line');
+    fetchDataAndPrepareChart('datas.json', ctx5, 'total', 'line');
+    const filters = ['categoryFilter', 'nameFilter', 'monthFilter'];
+
+    filters.forEach(filterId => {
+
+        document.getElementById(filterId).addEventListener('change', () => {
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            const actFilterName = document.getElementById('nameFilter').value;
+            const actFilterMonth = document.getElementById('monthFilter').value;
+    
+            fetchDataAndPrepareChart('datas.json', ctx5, 'total', 'line', selectedCategory, actFilterName,actFilterMonth);
+        });
+    })
 });
 
 

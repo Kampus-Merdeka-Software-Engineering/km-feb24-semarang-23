@@ -19,11 +19,13 @@ body {
     display: flex;
     justify-content: space-between;
     background-color: rgba(255, 234, 208,0.5);
-    height: 200px;
+    height: 170px;
 }
 
 .nav-container .title {
+    margin-top: 30px;
     padding-left: 15px;
+    margin-right: 80px;
 }
 
 .nav-container .title h1 {
@@ -32,6 +34,7 @@ body {
     text-transform: uppercase;
 }
 .nav-container .total{
+    margin: 20px 10px;
     display: inline-flex;
     padding: 20px;
 }
@@ -43,10 +46,15 @@ body {
     height: 75px;
     
 }
+.nav-container .total .filter{
+    margin: 35px 0;
+    
+}
 .nav-container .total .rev-ord p {
     color: #fff;
     font-size: 16px;
 }
+
 .nav-container .total .rev-ord h6 {
     color: #fff;
     font-size: 25px;
@@ -122,45 +130,6 @@ body {
     display: block;
 }
 
-/* end filter */
-/* comparison */
-/* .content .container .comparison {
-    width: 100%; */
-    /* margin-top: 20px; */
-    /* margin-right: 25px;
-} */
-
-/* end comparison */
-/* revenue */
-/* .content .container .revenue {
-    width: 100%;
-    /* margin-top: 20px; */
-    /* margin-right: 25px;
-}  */
-
-/* end revenue */
-/* charts  */
-/* .charts {
-    display: grid;
-    grid-template-columns: 2fr 2fr;
-    grid-gap: 20px;
-    width: 75%;
-    padding: 20px;
-    padding-top: 20px;
-}
-
-.chart {
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-}
-
-.chart h2 {
-    background-color: var(--primary);
-    margin-top: -20px;
-} */
-
 /* footer */
 footer {
     margin-left: 100px;
@@ -168,51 +137,3 @@ footer {
     margin-top: -10px;
     color: #655f5f;
 }
-
-/* end footer */
-/* media query */
-/* @media screen and (max-width: 1366px){
-    html{
-        font-size: 75%;
-    }   
-} */
-/* @media screen and (max-width: 768px) {
-    .nav {
-        /* flex-direction: column; */
-        /* flex-wrap: wrap;
-        justify-content: flex-start;
-    } */
-
-    /* .nav .title img {
-        width: 80px;
-        /* padding: 2px 5px 0; */
-    /* } */ 
-
-    /* .nav .title h1 {
-        font-size: 17px;
-        text-align: start;
-        margin-right: 50px;
-    }
-
-    .nav .total {
-        width: 150px;
-        height: 70px;
-        margin: 10px 7px;
-    }
-
-    .nav .total p {
-        font-size: 15px;
-    }
-
-    .nav .total h6 {
-        font-size: 25px;
-    }
-
-    .filter {
-        display: none;
-    }
-
-
-} */
-
-/* @media screen and(max-width: 450px) {}  */

@@ -6,12 +6,14 @@
 }
 
 header {
-    background-color:#FED049;
-    padding: 2px 20px; /* Atur padding atas dan bawah menjadi 2px, dan padding kanan dan kiri menjadi 20px */
+    background-color: #FED049;
+    padding: 2px 20px;
+    /* Atur padding atas dan bawah menjadi 2px, dan padding kanan dan kiri menjadi 20px */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 999; /* Menentukan urutan tampilan, pastikan lebih tinggi dari konten lain */
+    z-index: 999;
+    /* Menentukan urutan tampilan, pastikan lebih tinggi dari konten lain */
     margin-bottom: 60px;
 }
 
@@ -27,15 +29,18 @@ h2 {
 }
 
 nav {
-    margin: 5px; /* Jarak antara judul header dan navbar */
+    margin: 5px;
+    /* Jarak antara judul header dan navbar */
     display: flex;
     justify-content: space-between;
     padding-bottom: -5px;
 }
 
 .li-Home.active a {
-    color: white; /* Atur warna teks untuk item yang aktif */
-    font-weight: bold; /* Atur teks menjadi lebih tebal untuk menunjukkan item yang aktif */
+    color: white;
+    /* Atur warna teks untuk item yang aktif */
+    font-weight: bold;
+    /* Atur teks menjadi lebih tebal untuk menunjukkan item yang aktif */
 }
 
 nav.animation {
@@ -61,11 +66,13 @@ nav ul li a {
     text-decoration: none;
     color: black;
     position: relative;
-    padding-bottom: 5px; /* Menambahkan sedikit jarak antara teks dan garis */
+    padding-bottom: 5px;
+    /* Menambahkan sedikit jarak antara teks dan garis */
 }
 
 nav ul li a:hover {
-    color: white; /* Mengubah warna teks saat dihover */
+    color: white;
+    /* Mengubah warna teks saat dihover */
 }
 
 main {
@@ -79,7 +86,8 @@ main {
 }
 
 .intro h2 {
-    margin-bottom: 200px; /* Atur jarak antara judul dan tombol */
+    margin-bottom: 200px;
+    /* Atur jarak antara judul dan tombol */
 }
 
 .intro .btn {
@@ -89,12 +97,15 @@ main {
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px;
-    transition: background-color 0.3s ease; /* Efek transisi pada hover */
-    margin-top: 20px; /* Atur jarak antara tombol dan teks di atasnya */
+    transition: background-color 0.3s ease;
+    /* Efek transisi pada hover */
+    margin-top: 20px;
+    /* Atur jarak antara tombol dan teks di atasnya */
 }
 
 .intro .btn:hover {
-    background-color: #ffd700; /* Ubah warna tombol saat dihover */
+    background-color: #ffd700;
+    /* Ubah warna tombol saat dihover */
 }
 
 .menu {
@@ -105,11 +116,15 @@ main {
 }
 
 footer {
-    background-color:#FED049;
+    background-color: #FED049;
     color: black;
     text-align: center;
-    padding: 15px 0; /* Menambahkan padding atas dan bawah */
-    position: fixed; /* Mengatur posisi footer */
-    bottom: 0; /* Menempatkan footer di bagian bawah halaman */
-    width: 100%; /* Memastikan footer menutupi seluruh lebar halaman */
+    padding: 15px 0;
+    /* Menambahkan padding atas dan bawah */
+    position: fixed;
+    /* Mengatur posisi footer */
+    bottom: 0;
+    /* Menempatkan footer di bagian bawah halaman */
+    width: 100%;
+    /* Memastikan footer menutupi seluruh lebar halaman */
 }

@@ -10,19 +10,24 @@ body {
 }
 
 header {
-    position: fixed; /* Mengatur header agar tetap berada di atas halaman */
-    top: 0; /* Menempatkan header di bagian paling atas */
-    width: 100%; /* Membuat header menempati lebar penuh */
+    position: fixed;
+    /* Mengatur header agar tetap berada di atas halaman */
+    top: 0;
+    /* Menempatkan header di bagian paling atas */
+    width: 100%;
+    /* Membuat header menempati lebar penuh */
     background-color: #FED049;
     color: black;
     padding: 15px;
     text-align: center;
-    z-index: 999; /* Menentukan urutan tampilan, pastikan lebih tinggi dari konten lain */
+    z-index: 999;
+    /* Menentukan urutan tampilan, pastikan lebih tinggi dari konten lain */
     margin-bottom: 20px;
 }
 
 nav {
-    margin-left: 20px; /* Jarak antara judul header dan navbar */
+    margin-left: 20px;
+    /* Jarak antara judul header dan navbar */
     display: flex;
     justify-content: space-between;
     padding: 5px;
@@ -45,80 +50,107 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    color: white; /* Mengubah warna teks saat dihover */
+    color: white;
+    /* Mengubah warna teks saat dihover */
 }
 
 .container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 65px; /* Menambahkan margin atas untuk memberikan ruang di bawah header */
+    margin-top: 65px;
+    /* Menambahkan margin atas untuk memberikan ruang di bawah header */
 }
 
 .card {
-    width: 180px; /* Menyesuaikan lebar kartu */
-    height: 180px; /* Menyesuaikan tinggi kartu */
-    margin: 15px; /* Menyesuaikan margin agar kartu-kartu tidak terlalu rapat */
+    width: 180px;
+    /* Menyesuaikan lebar kartu */
+    height: 180px;
+    /* Menyesuaikan tinggi kartu */
+    margin: 15px;
+    /* Menyesuaikan margin agar kartu-kartu tidak terlalu rapat */
     overflow: hidden;
-    position: relative; /* Menambahkan properti position */
+    position: relative;
+    /* Menambahkan properti position */
 }
 
 .card img {
-    width: 100%; /* Mengatur lebar gambar agar sesuai dengan kartu */
-    height: 100%; /* Menyesuaikan tinggi gambar agar sesuai dengan kartu */
-    object-fit: cover; /* Memastikan gambar tetap proporsional dan terpotong jika perlu */
+    width: 100%;
+    /* Mengatur lebar gambar agar sesuai dengan kartu */
+    height: 100%;
+    /* Menyesuaikan tinggi gambar agar sesuai dengan kartu */
+    object-fit: cover;
+    /* Memastikan gambar tetap proporsional dan terpotong jika perlu */
     border-radius: 3px;
-    transition: transform 0.5s ease; /* Efek transisi saat dihover */
+    transition: transform 0.5s ease;
+    /* Efek transisi saat dihover */
 }
 
 .card .intro {
-    width: 100%; /* Menyesuaikan lebar teks dengan lebar kartu */
-    padding: 10px; /* Menyesuaikan padding dengan keinginan Anda */
+    width: 100%;
+    /* Menyesuaikan lebar teks dengan lebar kartu */
+    padding: 10px;
+    /* Menyesuaikan padding dengan keinginan Anda */
     box-sizing: border-box;
     position: absolute;
-    bottom: 0; /* Menempatkan teks di bagian bawah kartu */
-    background: rgba(27, 27, 27, 0.5); /* Menggunakan rgba untuk latar belakang dengan transparansi */
+    bottom: 0;
+    /* Menempatkan teks di bagian bawah kartu */
+    background: rgba(27, 27, 27, 0.5);
+    /* Menggunakan rgba untuk latar belakang dengan transparansi */
     color: white;
     transition: 0.5s;
-    text-align: center; /* Menambahkan properti text-align */
+    text-align: center;
+    /* Menambahkan properti text-align */
 }
 
 .card:hover .intro {
-    height: 100px; /* Menyesuaikan tinggi teks pada hover */
-    background: rgba(0, 0, 0, 0.7); /* Menyesuaikan warna latar belakang */
+    height: 100px;
+    /* Menyesuaikan tinggi teks pada hover */
+    background: rgba(0, 0, 0, 0.7);
+    /* Menyesuaikan warna latar belakang */
 }
 
 .card .intro h2,
 .card .intro p {
-    margin: 5px; /* Menyesuaikan margin sesuai keinginan */
+    margin: 5px;
+    /* Menyesuaikan margin sesuai keinginan */
 }
 
 .card .intro p {
-    font-size: 12px; /* Menyesuaikan ukuran font dengan keinginan Anda */
+    font-size: 12px;
+    /* Menyesuaikan ukuran font dengan keinginan Anda */
     visibility: hidden;
-    opacity: 0; /* Menyembunyikan teks pada awalnya */
-    transition: opacity 0.5s ease, visibility 0.5s ease; /* Efek transisi saat dihover */
+    opacity: 0;
+    /* Menyembunyikan teks pada awalnya */
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    /* Efek transisi saat dihover */
 }
 
 .card:hover .intro p {
-    opacity: 1; /* Menunjukkan teks pada hover */
-    visibility: visible; /* Menunjukkan teks pada hover */
+    opacity: 1;
+    /* Menunjukkan teks pada hover */
+    visibility: visible;
+    /* Menunjukkan teks pada hover */
 }
 
 .card:hover img {
-    transform: scale(1.1) rotate(-3deg); /* Efek zoom in saat dihover */
+    transform: scale(1.1) rotate(-3deg);
+    /* Efek zoom in saat dihover */
 }
 
 .logo {
     padding-top: 10px;
     padding-bottom: 10px;
-    width: 40px; /* Atur lebar logo */
-    height: auto; /* Biarkan ketinggian menyesuaikan proporsi */
+    width: 40px;
+    /* Atur lebar logo */
+    height: auto;
+    /* Biarkan ketinggian menyesuaikan proporsi */
 }
 
 /* Tambahkan aturan CSS ini di file styleprofile.css */
 .active {
-    color: white; /* Ubah warna teks sesuai keinginan Anda */
+    color: white;
+    /* Ubah warna teks sesuai keinginan Anda */
     font-weight: bold;
 }
 
@@ -126,29 +158,39 @@ footer {
     background-color: #FED049;
     color: black;
     text-align: center;
-    padding: 15px 0; /* Menambahkan padding atas dan bawah */
-    position: fixed; /* Mengatur posisi footer */
-    bottom: 0; /* Menempatkan footer di bagian bawah halaman */
-    width: 100%; /* Memastikan footer menutupi seluruh lebar halaman */
+    padding: 15px 0;
+    /* Menambahkan padding atas dan bawah */
+    position: fixed;
+    /* Mengatur posisi footer */
+    bottom: 0;
+    /* Menempatkan footer di bagian bawah halaman */
+    width: 100%;
+    /* Memastikan footer menutupi seluruh lebar halaman */
 }
 
 /* Responsif */
 @media screen and (max-width: 768px) {
     nav {
-        margin-left: 0; /* Menghapus margin kiri pada navbar */
-        justify-content: center; /* Pusatkan tautan navbar pada layar kecil */
+        margin-left: 0;
+        /* Menghapus margin kiri pada navbar */
+        justify-content: center;
+        /* Pusatkan tautan navbar pada layar kecil */
     }
 
     nav ul {
-        flex-direction: column; /* Atur tautan navbar menjadi kolom pada layar kecil */
-        align-items: center; /* Pusatkan tautan navbar pada layar kecil */
+        flex-direction: column;
+        /* Atur tautan navbar menjadi kolom pada layar kecil */
+        align-items: center;
+        /* Pusatkan tautan navbar pada layar kecil */
     }
 
     nav ul li {
-        margin: 10px 0; /* Berikan jarak antara tautan pada layar kecil */
+        margin: 10px 0;
+        /* Berikan jarak antara tautan pada layar kecil */
     }
 
     .container {
-        margin-top: 100px; /* Sesuaikan margin atas kontainer pada layar kecil */
+        margin-top: 100px;
+        /* Sesuaikan margin atas kontainer pada layar kecil */
     }
 }

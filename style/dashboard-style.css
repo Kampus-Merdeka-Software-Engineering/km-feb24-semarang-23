@@ -8,8 +8,8 @@ html {
 }
 
 body {
-    margin: 10px;
-    padding: 10px;
+    margin: 0x;
+    padding: 0;
     font-size: 15px;
     font-family: Arial, Helvetica, sans-serif
 }
@@ -21,11 +21,17 @@ body {
     justify-content: space-between;
     background-color: rgba(255, 234, 208,0.5);
     padding: 10px;
-    /* height: 190px; */
 }
 
 .nav-container .title {
-    margin-left: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    background-color: #FED049;
+    margin-left: 2px;
 }
 
 .nav-container .title h1 {
@@ -33,10 +39,31 @@ body {
     text-align: start;
     text-transform: uppercase;
     font-size: 2rem;
+    padding-left: 5px;
+}
+.nav-container .title ul{
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.nav-container .title ul li{
+    margin-right: 15px;
+}
+.nav-container .title ul li a{
+    margin-right: 15px;
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+    padding: 8px 0;
+}
+.nav-container .title ul li a:hover{
+    color: #fff;
 }
 .nav-container .total{
     display: flex;
     flex-wrap: wrap;
+    flex: 2;
     margin: 10px 0;
     gap: 10px;
 
@@ -45,7 +72,7 @@ body {
     margin-left: 85px; */
 }
 .nav-container .total .rev-ord{
-    background-color: var(--primary);
+    background-color: rgb(226, 174, 19);
     flex: 1 1 200px;
     text-align: center;
     padding: 15px;
@@ -58,7 +85,6 @@ body {
 }
 .nav-container .total .filter{
     flex: 1 1 100px;
-    /* margin: 35px 10px;    */
 }
 select{
     width: 100%;
@@ -117,8 +143,14 @@ select option:hover{
 
 /* footer */
 footer {
-    margin: 10px 25px;
+    margin: 10px 0;
     color: #655f5f;
+    background-color: rgb(254, 208, 73);
+    color: black;
+    text-align: center;
+    padding: 15px 0;
+    bottom: 0;
+    width: 100%;
 }
 
 /* Media Queries */

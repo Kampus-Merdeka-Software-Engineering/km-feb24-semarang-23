@@ -191,11 +191,11 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle, filterCategor
             });
             // Array of custom background colors
             const customBackgroundColors = [
-                'rgb(165, 42, 42)',
-                'rgb(210, 105, 30)',
-                'rgb(251, 127, 80)',
-                'rgb(222, 184, 135)',
-                'rgb(255, 234, 208)',
+                'rgb(226, 174, 19)',
+                'rgb(208, 208, 15)',
+                'rgb(254, 208, 73)',
+                'rgb(238, 178, 59)',
+                'rgb(212, 160, 15)',
                 'rgb(184, 134, 11)',
                 'rgb(189, 183, 107)',
             ];

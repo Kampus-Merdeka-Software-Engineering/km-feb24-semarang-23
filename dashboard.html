@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <!-- Add FontAwesome icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!-- <link rel="stylesheet" href="style/test.css" /> -->
+    <link rel="stylesheet" href="style/dashboard-style.css" />
+  </head>
+  <body>
+    <div class="nav-container">
+      <div class="title">
+        <h1>Pizza Place Sales Dashboard</h1>
+        <ul>
+          <li class="li-Home"><a href="index.html">Home</a></li>
+          <li class="li-Dashboard"><a class="active" href="#">Dashboard</a></li>
+          <li class="li-Teams"><a href="profile.html">Teams</a></li>
+        </ul>
+      </div>
+      <div class="total">
+        <div class="rev-ord revenue">
+          <p>Total revenue</p>
+          <h6 id="total-revenue"></h6>
+        </div>
+        <div class="rev-ord orders">
+          <p>Total orders</p>
+          <h6 id="total-order"></h6>
+        </div>
+        <div class="filter">
+          <label for="categoryFilter" class="rev-ord-title">Category:</label
+          ><br />
+          <select id="categoryFilter">
+            <option value="all" class="opt-filter">All</option>
+          </select>
+        </div>
+        <div class="filter">
+          <label for="nameFilter" class="rev-ord-title">Pizza Name:</label
+          ><br />
+          <select id="nameFilter">
+            <option value="all" class="opt-filter">All</option>
+          </select>
+        </div>
+        <div class="filter">
+          <label for="monthFilter" class="rev-ord-title">Month:</label><br />
+          <select id="monthFilter">
+            <option value="all" class="opt-filter">All</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Place the chart below the filter section -->
+    <section>
+      <div class="container">
+        <div class="chart weekChart">
+          <h3>Percentage decrease on weekends</h3>
+          <canvas id="weekChart"></canvas>
+        </div>
+        <div class="chart sizeChart">
+          <h3>Total sales based on size</h3>
+          <canvas id="sizeChart"></canvas>
+        </div>
+        <div class="chart dayChart">
+          <h3>Total sales by category</h3>
+          <canvas id="dayChart"></canvas>
+        </div>
+        <div class="chart monthChart">
+          <h3>Preference of the day visitors order pizza</h3>
+          <canvas id="monthChart"></canvas>
+        </div>
+        <div class="chart timeChart">
+          <h3>Total weekend sales</h3>
+          <canvas id="timeChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p id="footer"></p>
+    </footer>
+
+    <!-- Add Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="js/script.js"></script>
+    <!-- <script src="Size.js"></script> -->
+    <script src="node_modules/moment/moment.js"></script>
+  </body>
+</html>

@@ -95,7 +95,7 @@ let lastSelectedName = 'all';
 let lastSelectedMonth = 'all';
 
 // Fungsi untuk melakukan fetch data dan menyiapkan data chart
-function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle, filterCategory = 'all', filterName = 'all', filterMonth = 'all') {
+function fetchDataAndPrepareChart1(url, ctx, chartType, chartStyle, filterCategory = 'all', filterName = 'all', filterMonth = 'all') {
     // console.log(`Filter values - Category: ${filterCategory}, Name: ${filterName}, Month: ${filterMonth}`);
 
     const rev = document.getElementById('total-revenue');
@@ -132,18 +132,12 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle, filterCategor
                 return isCategoryMatch && isNameMatch && isMonthMatch;
             });
 
-            // Buat array untuk nama hari dalam bahasa Inggris
-            const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-            const monthsInEnglish = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-            // Fungsi untuk memetakan nama hari ke nomor urutan hari dalam seminggu
+            const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday','Sunday'];
             function getDayIndex(dayName) {
                 return daysOfWeek.indexOf(dayName);
             }
-            function getMonthIndex(monthName) {
-                return monthsInEnglish.indexOf(monthName);
-            }
-            // Mengurutkan data berdasarkan hari 
-            simplifiedData.sort((a, b) => {
+
+            filteredData.sort((a, b) => {
                 const dateA = getDayIndex(a.date);
                 const dateB = getDayIndex(b.date);
                 return dateA - dateB;
@@ -264,11 +258,31 @@ function fetchDataAndPrepareChart(url, ctx, chartType, chartStyle, filterCategor
         
 }
 
+function getWeekOfMonth(date) {
+    const givenDate = new Date(date);
+    const weekInMonth = Math.floor((givenDate.getDate() - 1 + getFirstDayOfMonth(date)) / 7) + 1;
+    return weekInMonth;
+}
+
+function getFirstDayOfMonth(date) {
+    const givenDate = new Date(date);
+    const year = givenDate.getFullYear();
+    const month = givenDate.getMonth();
+    const firstDayOfMonth = new Date(year, month, 1);
+    let firstWeekDay = firstDayOfMonth.getDay();
+    if (firstWeekDay === 0) {
+        firstWeekDay = 6;
+    } else {
+        firstWeekDay -= 1;
+    }
+    return firstWeekDay;
+}
+
 // Menggunakan fungsi fetchDataAndPrepareChart untuk membuat chart
 document.addEventListener('DOMContentLoaded', () => {
     const ctx1 = document.getElementById('weekChart').getContext('2d');
 
-    fetchDataAndPrepareChart('datas.json', ctx1, 'total', 'pie',lastSelectedCategory,lastSelectedName,lastSelectedMonth);
+    fetchDataAndPrepareChart1('datas.json', ctx1, 'total', 'pie',lastSelectedCategory,lastSelectedName,lastSelectedMonth);
     
     const filters = ['categoryFilter', 'nameFilter', 'monthFilter'];
     
@@ -280,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const actFilterName = document.getElementById('nameFilter').value;
             const actFilterMonth = document.getElementById('monthFilter').value;
             
-            fetchDataAndPrepareChart('datas.json', ctx1, 'total', 'pie', selectedCategory, actFilterName, actFilterMonth);
+            fetchDataAndPrepareChart1('datas.json', ctx1, 'total', 'pie', selectedCategory, actFilterName, actFilterMonth);
         });
        
     });
@@ -294,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const ctx2 = document.getElementById('sizeChart').getContext('2d');
 
-    fetchDataAndPrepareChart('datas.json', ctx2, 'size', 'doughnut',lastSelectedCategory,lastSelectedName,lastSelectedMonth);
+    fetchDataAndPrepareChart1('datas.json', ctx2, 'size', 'doughnut',lastSelectedCategory,lastSelectedName,lastSelectedMonth);
     const filters = ['categoryFilter', 'nameFilter', 'monthFilter'];
 
     filters.forEach(filterId => {
@@ -304,7 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const actFilterName = document.getElementById('nameFilter').value;
             const actFilterMonth = document.getElementById('monthFilter').value;
     
-            fetchDataAndPrepareChart('datas.json', ctx2, 'size', 'doughnut', selectedCategory, actFilterName, actFilterMonth);
+            fetchDataAndPrepareChart1('datas.json', ctx2, 'size', 'doughnut', selectedCategory, actFilterName, actFilterMonth);
             
         });
     });
@@ -315,10 +329,11 @@ document.addEventListener('DOMContentLoaded', () => {
     nameFilter.value = lastSelectedName;
     monthFilter.value = lastSelectedMonth;
 });
+
 document.addEventListener('DOMContentLoaded', () => {
     const ctx3 = document.getElementById('dayChart').getContext('2d');
 
-    fetchDataAndPrepareChart('datas.json', ctx3, 'category', 'bar',lastSelectedCategory,lastSelectedName,lastSelectedMonth);
+    fetchDataAndPrepareChart2('datas.json', ctx3, 'category', 'bar',lastSelectedCategory,lastSelectedName,lastSelectedMonth);
     const filters = ['categoryFilter', 'nameFilter', 'monthFilter'];
 
     filters.forEach(filterId => {
@@ -328,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const actFilterName = document.getElementById('nameFilter').value;
             const actFilterMonth = document.getElementById('monthFilter').value;
     
-            fetchDataAndPrepareChart('datas.json', ctx3, 'category', 'bar', selectedCategory, actFilterName, actFilterMonth);
+            fetchDataAndPrepareChart2('datas.json', ctx3, 'category', 'bar', selectedCategory, actFilterName, actFilterMonth);
             
         });
     });
@@ -343,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const ctx4 = document.getElementById('monthChart').getContext('2d');
 
-    fetchDataAndPrepareChart('datas.json', ctx4, 'total', 'bar',lastSelectedCategory,lastSelectedName,lastSelectedMonth);
+    fetchDataAndPrepareChart3('datas.json', ctx4, 'day', 'bar',lastSelectedCategory,lastSelectedName,lastSelectedMonth);
     const filters = ['categoryFilter', 'nameFilter', 'monthFilter'];
 
     filters.forEach(filterId => {
@@ -353,7 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const actFilterName = document.getElementById('nameFilter').value;
             const actFilterMonth = document.getElementById('monthFilter').value;
     
-            fetchDataAndPrepareChart('datas.json', ctx4, 'total', 'bar', selectedCategory, actFilterName, actFilterMonth);
+            fetchDataAndPrepareChart3('datas.json', ctx4, 'day', 'bar', selectedCategory, actFilterName, actFilterMonth);
             
         });
     });
@@ -366,9 +381,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-    const ctx5 = document.getElementById('timeChart').getContext('2d');
+    const ctx5 = document.getElementById('timeChart1').getContext('2d');
 
-    fetchDataAndPrepareChart('datas.json', ctx5, 'total', 'line',lastSelectedCategory,lastSelectedName,lastSelectedMonth);
+    fetchDataAndPrepareChart1('datas.json', ctx5, 'month', 'line',lastSelectedCategory,lastSelectedName,lastSelectedMonth);
     const filters = ['categoryFilter', 'nameFilter', 'monthFilter'];
 
     filters.forEach(filterId => {
@@ -378,7 +393,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const actFilterName = document.getElementById('nameFilter').value;
             const actFilterMonth = document.getElementById('monthFilter').value;
     
-            fetchDataAndPrepareChart('datas.json', ctx5, 'total', 'line', selectedCategory, actFilterName, actFilterMonth);
+            fetchDataAndPrepareChart1('datas.json', ctx5, 'month', 'line', selectedCategory, actFilterName, actFilterMonth);
             
         });
     });
@@ -390,5 +405,53 @@ document.addEventListener('DOMContentLoaded', () => {
     monthFilter.value = lastSelectedMonth;
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const ctx6 = document.getElementById('timeChart2').getContext('2d');
 
+    fetchDataAndPrepareChart1('datas.json', ctx6, 'total', 'line',lastSelectedCategory,lastSelectedName,lastSelectedMonth);
+    const filters = ['categoryFilter', 'nameFilter', 'monthFilter'];
+
+    filters.forEach(filterId => {
+
+        document.getElementById(filterId).addEventListener('change', () => {
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            const actFilterName = document.getElementById('nameFilter').value;
+            const actFilterMonth = document.getElementById('monthFilter').value;
+    
+            fetchDataAndPrepareChart1('datas.json', ctx6, 'total', 'line', selectedCategory, actFilterName, actFilterMonth);
+            
+        });
+    });
+    const categoryFilter = document.getElementById('categoryFilter');
+    const nameFilter = document.getElementById('nameFilter');
+    const monthFilter = document.getElementById('monthFilter');
+    categoryFilter.value = lastSelectedCategory;
+    nameFilter.value = lastSelectedName;
+    monthFilter.value = lastSelectedMonth;
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const ctx7 = document.getElementById('timeChart3').getContext('2d');
+
+    fetchDataAndPrepareChart1('datas.json', ctx7, 'hour', 'line',lastSelectedCategory,lastSelectedName,lastSelectedMonth);
+    const filters = ['categoryFilter', 'nameFilter', 'monthFilter'];
+
+    filters.forEach(filterId => {
+
+        document.getElementById(filterId).addEventListener('change', () => {
+            const selectedCategory = document.getElementById('categoryFilter').value;
+            const actFilterName = document.getElementById('nameFilter').value;
+            const actFilterMonth = document.getElementById('monthFilter').value;
+    
+            fetchDataAndPrepareChart1('datas.json', ctx7, 'total', 'line', selectedCategory, actFilterName, actFilterMonth);
+            
+        });
+    });
+    const categoryFilter = document.getElementById('categoryFilter');
+    const nameFilter = document.getElementById('nameFilter');
+    const monthFilter = document.getElementById('monthFilter');
+    categoryFilter.value = lastSelectedCategory;
+    nameFilter.value = lastSelectedName;
+    monthFilter.value = lastSelectedMonth;
+});
 

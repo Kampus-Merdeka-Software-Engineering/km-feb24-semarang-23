@@ -133,6 +133,11 @@ select option:hover{
     padding: 20px;
     max-width: 500px;
 }
+#timeChart1,#timeChart2,#timeChart3{
+    width: 100%;
+    height: 500px;
+    padding-bottom: 30px;
+}
 
 .container .chart h3 {
     text-align: center;

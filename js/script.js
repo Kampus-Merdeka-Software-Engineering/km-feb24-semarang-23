@@ -2,7 +2,6 @@ function displayLastUpdatedDate() {
     const footer = document.getElementById('footer');
     const lastUpdated = document.lastModified;
     footer.innerText = `Last Updated: ${new Date(lastUpdated).toLocaleDateString()}`;
-
 }
 
 function getUniqueCategories(jsonData) {
@@ -443,7 +442,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const actFilterName = document.getElementById('nameFilter').value;
             const actFilterMonth = document.getElementById('monthFilter').value;
     
-            fetchDataAndPrepareChart1('datas.json', ctx7, 'total', 'line', selectedCategory, actFilterName, actFilterMonth);
+            fetchDataAndPrepareChart1('datas.json', ctx7, 'hour', 'line', selectedCategory, actFilterName, actFilterMonth);
             
         });
     });
